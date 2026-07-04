@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Educativo: Digoxina y la Bomba Na+/K+-ATPasa</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- ZONA SUPERIOR: Canvas de Simulación -->
+        <section class="zone zone-top">
+            <div class="canvas-container">
+                <canvas id="membraneCanvas" width="1200" height="400"></canvas>
+            </div>
+        </section>
+
+        <!-- ZONA MEDIA: Panel de Control -->
+        <section class="zone zone-middle">
+            <div class="control-panel">
+                <!-- Título -->
+                <h2>Panel de Control de Simulación</h2>
+
+                <!-- Botones de Control -->
+                <div class="button-group">
+                    <button id="startBtn" class="btn btn-primary">Iniciar Simulación</button>
+                    <button id="pauseBtn" class="btn btn-secondary">Pausar</button>
+                    <button id="resetBtn" class="btn btn-danger">Reiniciar</button>
+                    <button id="speedBtn" class="btn btn-info">Velocidad ×1</button>
+                </div>
+
+                <!-- Slider de Concentración de Digoxina -->
+                <div class="slider-group">
+                    <label for="digoxinSlider">Concentración de Digoxina: <span id="digoxinValue">0</span>%</label>
+                    <input type="range" id="digoxinSlider" min="0" max="100" value="0" class="slider">
+                </div>
+
+                <!-- Contadores en Tiempo Real -->
+                <div class="counters-grid">
+                    <div class="counter">
+                        <span class="counter-label">Na+ Intracelular</span>
+                        <span class="counter-value" id="naIntracellular">150</span> mM
+                    </div>
+                    <div class="counter">
+                        <span class="counter-label">Na+ Extracelular</span>
+                        <span class="counter-value" id="naExtracellular">145</span> mM
+                    </div>
+                    <div class="counter">
+                        <span class="counter-label">K+ Intracelular</span>
+                        <span class="counter-value" id="kIntracellular">5</span> mM
+                    </div>
+                    <div class="counter">
+                        <span class="counter-label">K+ Extracelular</span>
+                        <span class="counter-value" id="kExtracellular">140</span> mM
+                    </div>
+                    <div class="counter">
+                        <span class="counter-label">Ca2+ Intracelular</span>
+                        <span class="counter-value" id="caIntracellular">0.1</span> µM
+                    </div>
+                    <div class="counter">
+                        <span class="counter-label">ATPasas Activas</span>
+                        <span class="counter-value" id="activePumps">10</span>
+                    </div>
+                    <div class="counter">
+                        <span class="counter-label">ATPasas Bloqueadas</span>
+                        <span class="counter-value" id="blockedPumps">0</span>
+                    </div>
+                    <div class="counter">
+                        <span class="counter-label">Vel. Intercambiador</span>
+                        <span class="counter-value" id="exchangerSpeed">100</span>%
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ZONA INFERIOR: Gráfico de Rendimiento -->
+        <section class="zone zone-bottom">
+            <div class="graph-container">
+                <h3>Gráfico de Rendimiento: ATPasas Activas vs Digoxina</h3>
+                <canvas id="performanceChart" width="800" height="250"></canvas>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

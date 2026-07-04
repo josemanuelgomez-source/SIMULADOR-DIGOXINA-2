@@ -246,7 +246,7 @@ class DigoxinaSimulator {
     }
 
     draw() {
-        // Limpiar canvas
+        // Limpiar canvas principal
         this.ctx.fillStyle = 'white';
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
@@ -340,12 +340,12 @@ class DigoxinaSimulator {
     }
 
     drawGraph() {
-        const padding = 40;
+        const padding = 50;
         const width = this.graphCanvas.width - 2 * padding;
         const height = this.graphCanvas.height - 2 * padding;
 
         // Fondo
-        this.graphCtx.fillStyle = 'white';
+        this.graphCtx.fillStyle = '#f9f9f9';
         this.graphCtx.fillRect(0, 0, this.graphCanvas.width, this.graphCanvas.height);
 
         // Ejes
@@ -357,23 +357,35 @@ class DigoxinaSimulator {
         this.graphCtx.lineTo(this.graphCanvas.width - padding, padding);
         this.graphCtx.stroke();
 
-        // Etiquetas
+        // Etiqueta eje X
         this.graphCtx.fillStyle = '#333';
         this.graphCtx.font = 'bold 12px Arial';
         this.graphCtx.textAlign = 'center';
-        this.graphCtx.fillText('Concentración Digoxina (%)', this.graphCanvas.width / 2, this.graphCanvas.height - 10);
+        this.graphCtx.fillText('Concentración Digoxina (%)', this.graphCanvas.width / 2, this.graphCanvas.height - 15);
 
+        // Etiqueta eje Y
         this.graphCtx.save();
-        this.graphCtx.translate(15, this.graphCanvas.height / 2);
+        this.graphCtx.translate(20, this.graphCanvas.height / 2);
         this.graphCtx.rotate(-Math.PI / 2);
         this.graphCtx.textAlign = 'center';
         this.graphCtx.fillText('ATPasas Activas', 0, 0);
         this.graphCtx.restore();
 
+        // Líneas guía
+        this.graphCtx.strokeStyle = '#ddd';
+        this.graphCtx.lineWidth = 1;
+        for (let i = 1; i < 10; i++) {
+            const y = padding + (i / 10) * height;
+            this.graphCtx.beginPath();
+            this.graphCtx.moveTo(padding - 5, y);
+            this.graphCtx.lineTo(this.graphCanvas.width - padding, y);
+            this.graphCtx.stroke();
+        }
+
         // Dibujar línea del gráfico
         if (this.graphData.length > 1) {
             this.graphCtx.strokeStyle = '#667eea';
-            this.graphCtx.lineWidth = 2;
+            this.graphCtx.lineWidth = 3;
             this.graphCtx.beginPath();
 
             this.graphData.forEach((data, index) => {
@@ -395,7 +407,7 @@ class DigoxinaSimulator {
                 const xPos = padding + (index / this.maxGraphPoints) * width;
                 const yPos = height + padding - (data.activePumps / 10) * height;
                 this.graphCtx.beginPath();
-                this.graphCtx.arc(xPos, yPos, 3, 0, Math.PI * 2);
+                this.graphCtx.arc(xPos, yPos, 4, 0, Math.PI * 2);
                 this.graphCtx.fill();
             });
         }
@@ -662,7 +674,7 @@ class Ion {
         this.angle = angle;
         this.direction = direction; // 'interior' o 'exterior'
 
-        this.speed = 60; // píxeles/segundo
+        this.speed = 15; // píxeles/segundo - REDUCIDO DE 60 A 15 PARA RALENTIZAR
         this.distance = 0;
         this.maxDistance = 40;
         this.isDead = false;
@@ -712,8 +724,8 @@ class DigoxinaMolecule {
         this.x = Math.random() * simulator.canvas.width;
         this.y = Math.random() * (simulator.canvas.height / 2 - 10) + 10; // Solo en espacio extracelular
 
-        this.vx = (Math.random() - 0.5) * 20; // Velocidad browniana
-        this.vy = (Math.random() - 0.5) * 20;
+        this.vx = (Math.random() - 0.5) * 5; // Velocidad browniana - REDUCIDA
+        this.vy = (Math.random() - 0.5) * 5;
 
         this.radius = 6;
         this.isAttached = false;
@@ -727,15 +739,15 @@ class DigoxinaMolecule {
         this.x += this.vx * dt;
         this.y += this.vy * dt;
 
-        // Ruido aleatorio
-        this.vx += (Math.random() - 0.5) * 10;
-        this.vy += (Math.random() - 0.5) * 10;
+        // Ruido aleatorio - REDUCIDO
+        this.vx += (Math.random() - 0.5) * 3;
+        this.vy += (Math.random() - 0.5) * 3;
 
-        // Limitar velocidad
+        // Limitar velocidad - MÁS LENTO
         const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
-        if (speed > 40) {
-            this.vx = (this.vx / speed) * 40;
-            this.vy = (this.vy / speed) * 40;
+        if (speed > 15) {
+            this.vx = (this.vx / speed) * 15;
+            this.vy = (this.vy / speed) * 15;
         }
 
         // Rebote en bordes

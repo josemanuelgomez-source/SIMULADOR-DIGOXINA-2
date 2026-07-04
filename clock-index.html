@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reloj Digital - Múltiples Zonas Horarias</title>
+    <link rel="stylesheet" href="clock-style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⏰ Reloj Digital Global</h1>
+            <p>Hora en diferentes zonas horarias del mundo</p>
+        </header>
+
+        <div class="controls">
+            <div class="format-toggle">
+                <label>Formato de Hora:</label>
+                <button id="format24Btn" class="btn-format active">24 horas</button>
+                <button id="format12Btn" class="btn-format">12 horas (AM/PM)</button>
+            </div>
+            
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Buscar zona horaria...">
+                <button id="clearSearchBtn" class="btn-clear">✕</button>
+            </div>
+        </div>
+
+        <div class="timezone-grid" id="timezoneGrid">
+            <!-- Los relojes se generarán dinámicamente con JavaScript -->
+        </div>
+
+        <div class="add-timezone">
+            <h3>➕ Agregar Zona Horaria Personalizada</h3>
+            <div class="add-form">
+                <select id="timezoneSelect">
+                    <option value="">Selecciona una zona horaria</option>
+                </select>
+                <input type="text" id="timezoneLabel" placeholder="Nombre personalizado (ej: Mi Oficina)">
+                <button id="addBtn" class="btn-add">Agregar</button>
+            </div>
+        </div>
+
+        <div class="custom-timezones" id="customTimezones">
+            <h3>Mi Zonas Personalizadas</h3>
+            <div id="customList" class="custom-list">
+                <!-- Las zonas personalizadas aparecerán aquí -->
+            </div>
+        </div>
+    </div>
+
+    <script src="clock-script.js"></script>
+</body>
+</html>
